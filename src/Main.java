@@ -12,8 +12,9 @@ public class Main {
 
         Hero hero = new Hero(name);
 
-        NPC advisor = new NPC("Ли Кван У", "Верховный Советник", -10);
-        NPC guard = new NPC("Ян Чонин", "Капитан Императорской Гвардии", 20);
+        NPC advisor = new NPC("Кван Джи Хун", "Первый Министр", -80);
+        NPC captain = new NPC("Ян Чонин", "Капитан Императорской Гвардии", -20);
+        NPC guard = new NPC("Чхве Джин Сан", "Командир Императорской Стражи", 100);
 
         boolean isRunning = true;
 
@@ -22,6 +23,8 @@ public class Main {
         while (isRunning) {
             hero.printStatus();
             advisor.printInfo();
+            captain.printInfo();
+            guard.printInfo();
 
             System.out.println("Выберите действие:");
             System.out.println("1. Посетить аудиенцию (+10 к влиянию, -10 к энергии)");
@@ -55,14 +58,23 @@ public class Main {
                     System.out.println("\nНеверный выбор. Попробуйте снова.");
             }
             if (rand.nextInt(100) < 50) {
-                triggerRandomEvent(hero, advisor, scanner, rand);
+                int npc = rand.nextInt(3);
+                NPC chosenNPC;
+                if (npc == 0) {
+                    chosenNPC = advisor;
+                } else if (npc == 1) {
+                    chosenNPC = captain;
+                } else {
+                    chosenNPC = guard;
+                }
+                triggerRandomEvent(hero, chosenNPC, scanner, rand);
             }
         }
         scanner.close();
     }
 
     private static void triggerRandomEvent(Hero hero, NPC npc, Scanner scanner, Random rand) {
-        System.out.println("\n⚠\uFE0F [ДВОРЦОВАЯ ИНТРИГА!] ⚠\uFE0F");
+        System.out.println("\n⚠️ [ДВОРЦОВАЯ ИНТРИГА!] ⚠️");
 
         int eventType = rand.nextInt(2);
 
@@ -88,7 +100,7 @@ public class Main {
                 System.out.println("Вы проигнорировали выпад. Ваше влияние упало.");
             }
         } else {
-            System.out.println("Вы случайно узнали секрет соперника!");
+            System.out.println("Вы случайно узнали секрет " + npc.getTitle() + " " + npc.getName() + "!");
             System.out.println("1. Шантажировать его (+20 золота, испортить отношения)");
             System.out.println("2. Сохранить тайну (+25 к отношениям)");
             System.out.println("> ");
@@ -97,10 +109,10 @@ public class Main {
             if (choice == 1) {
                 hero.changeGold(20);
                 npc.changeRelationship(-30);
-                System.out.println("Советник заплатил вам, но теперь он вас ненавидит.");
+                System.out.println(npc.getName() + " заплатил вам, но теперь он вас ненавидит.");
             } else {
                 npc.changeRelationship(25);
-                System.out.println("Советник благодарен за ваше молчание.");
+                System.out.println(npc.getName() + " благодарен за ваше молчание.");
             }
         }
     }
