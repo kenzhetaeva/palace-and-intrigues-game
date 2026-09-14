@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -30,6 +31,7 @@ public class Main {
             System.out.println("1. Посетить аудиенцию (+10 к влиянию, -10 к энергии)");
             System.out.println("2. Собрать налоги (+20 золота, -15 к энергии)");
             System.out.println("3. Отдохнуть (+30 к энергии)");
+            System.out.println("4. \uD83C\uDF92 Открыть инвентарь");
             System.out.println("0. Выйти из игры");
             System.out.println("> ");
 
@@ -50,6 +52,9 @@ public class Main {
                     System.out.println("\nВы отдохнули в своих покоях.");
                     hero.changeHealth(30);
                     break;
+                case 4:
+                    openInventoryMenu(hero, scanner);
+                    continue;
                 case 0:
                     System.out.println("\nВы покинули игру.");
                     isRunning = false;
@@ -141,6 +146,31 @@ public class Main {
                 npc.changeRelationship(25);
                 System.out.println(npc.getName() + " благодарен за ваше молчание.");
             }
+        }
+    }
+
+    private static void openInventoryMenu(Hero hero, Scanner scanner) {
+        List<Item> items = hero.getInventory();
+
+        System.out.println("\n--- \uD83C\uDF92 ВАШ ИНВЕНТАРЬ ---");
+        if (items.isEmpty()) {
+            System.out.println("Инвентарь пуст.");
+            return;
+        }
+
+        for (int i = 0; i < items.size(); i++) {
+            System.out.print((i + 1) + ". ");
+            items.get(i).printInfo();
+        }
+        System.out.println("0. Назад в главное меню");
+        System.out.print("Выберите номер предмета для использования: ");
+
+        int itemChoice = scanner.nextInt();
+
+        if (itemChoice > 0 && itemChoice <= items.size()) {
+            hero.useItem(itemChoice - 1);
+        } else if (itemChoice != 0) {
+            System.out.println("⚠️ Неверный номер предмета.");
         }
     }
 }

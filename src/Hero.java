@@ -16,6 +16,8 @@ public class Hero {
         this.gold = 100;
         this.health = 100;
         this.inventory = new ArrayList<>();
+
+        inventory.add(new Item("Целительный отвар", "Восстанавливает 30 ед. энергии", ItemType.HEALTH, 30));
     }
 
     public void changeInfluence(int amount) {
@@ -69,20 +71,31 @@ public class Hero {
         System.out.println("✨ Вы получили предмет: [" + item.getName() + "]");
     }
 
+    public void useItem(int index) {
+        if (index < 0 || index >= inventory.size()) {
+            System.out.println("⚠️ Предмета с таким номером нет!");
+            return;
+        }
+        Item item = inventory.get(index);
+
+        if (item.getType() == ItemType.HEALTH) {
+            changeHealth(item.getValue());
+            System.out.println("\n\uD83E\uDDEA Вы использовали ["
+                    + item.getName() + "] и восстановили " + item.getValue() + "энергии!");
+            inventory.remove(index);
+        } else if (item.getType() == ItemType.COMPROMAT) {
+            System.out.println("\n\uD83D\uDCDC Этот предмет нельзя использовать просто так - приберегите его для дворцовых интриг!");
+        } else {
+            System.out.println("\nЭтот предмет нельзя применить прямо сейчас.");
+        }
+    }
+
     public void printStatus() {
         System.out.println("\n===============СТАТУС ПЕРСОНАЖА===============");
         System.out.println("Имя: " + name);
         System.out.println("Влияние: " + influence + "/100");
         System.out.println("Казна: " + gold + " монет");
         System.out.println("Энергия: " + health + "/100");
-        System.out.println("--- ИНВЕНТАРЬ ---");
-        if (inventory.isEmpty()) {
-            System.out.println("(Пусто)");
-        } else {
-            for (Item item : inventory) {
-                item.printInfo();
-            }
-        }
         System.out.println("===============================================\n");
     }
 
@@ -100,5 +113,9 @@ public class Hero {
 
     public int getHealth() {
         return health;
+    }
+
+    public List<Item> getInventory() {
+        return inventory;
     }
 }

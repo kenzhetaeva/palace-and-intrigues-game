@@ -14,7 +14,7 @@ public class Item {
     public void printInfo() {
         System.out.println(
                 "\uD83D\uDCE6 [" + this.name + "] - " + this.description
-                        + " (Тип: " + this.type + ", Сила эффекта: " + this.value + ")"
+                        + " (Тип: " + this.type + ", Эффект: " + this.value + ")"
         );
     }
 
