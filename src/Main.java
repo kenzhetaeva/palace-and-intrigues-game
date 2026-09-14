@@ -12,8 +12,8 @@ public class Main {
 
         Hero hero = new Hero(name);
 
-        NPC advisor = new NPC("Кван Джи Хун", "Первый Министр", -80);
-        NPC captain = new NPC("Ян Чонин", "Капитан Императорской Гвардии", -20);
+        NPC advisor = new NPC("Кван Джи Хун", "Первый Министр", -20);
+        NPC captain = new NPC("Ян Чонин", "Капитан Императорской Гвардии", -80);
         NPC guard = new NPC("Чхве Джин Сан", "Командир Императорской Стражи", 100);
 
         boolean isRunning = true;
@@ -76,12 +76,17 @@ public class Main {
     private static void triggerRandomEvent(Hero hero, NPC npc, Scanner scanner, Random rand) {
         System.out.println("\n⚠️ [ДВОРЦОВАЯ ИНТРИГА!] ⚠️");
 
-        int eventType = rand.nextInt(2);
+        int eventType = rand.nextInt(3);
+        String compromisingMaterialItem = "Компромат";
 
         if (eventType == 0) {
             System.out.println(npc.getTitle() + " " + npc.getName() + " распускает о вас слухи!");
             System.out.println("1. Подкупить его (Потратить 30 монет)");
             System.out.println("2. Игнорировать (Потерять 15 влияния)");
+
+            if (hero.hasItem(compromisingMaterialItem)) {
+                System.out.println("3. [Использовать компромат] Заставить молчать");
+            }
             System.out.println("> ");
 
             int choice = scanner.nextInt();
@@ -94,10 +99,27 @@ public class Main {
                     System.out.println("У вас недостаточно золота! Слухи распространились.");
                     hero.changeInfluence(-15);
                 }
-            } else {
+            } else if (choice == 2) {
                 hero.changeInfluence(-15);
                 npc.changeRelationship(-10);
                 System.out.println("Вы проигнорировали выпад. Ваше влияние упало.");
+            }  else if (choice == 3 && hero.hasItem(compromisingMaterialItem)) {
+                System.out.println("\nВы показали документ с его тайной. Он бледнеет и умолкает!\n");
+                hero.removeItem(compromisingMaterialItem);
+                npc.changeRelationship(-10);
+            }
+        } else if (eventType == 1) {
+            System.out.println("Гуляя по дворцовому саду, вы нашли тайник в дупле древнего дуба!");
+            System.out.println("1. Забрать содержимое себе");
+            System.out.println("2. Ничего не трогать");
+            System.out.println("> ");
+
+            int choice = scanner.nextInt();
+            if (choice == 1) {
+                hero.addItem(compromisingMaterialItem);
+                System.out.println("Вы получили секретные бумаги!");
+            } else {
+                System.out.println("Вы не стали трогать чужие вещи и узнавать чужие тайны");
             }
         } else {
             System.out.println("Вы случайно узнали секрет " + npc.getTitle() + " " + npc.getName() + "!");
