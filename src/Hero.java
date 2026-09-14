@@ -54,15 +54,14 @@ public class Hero {
         return false;
     }
 
-    public boolean removeItemByName(String itemName) {
+    public void removeItemByName(String itemName) {
         for (Item item : inventory) {
             if (item.getName().equalsIgnoreCase(itemName)) {
                 inventory.remove(item);
                 System.out.println("❌ Предмет использован: [" + item.getName() + "]");
-                return true;
+                return;
             }
         }
-        return false;
     }
 
     public void addItem(Item item) {
