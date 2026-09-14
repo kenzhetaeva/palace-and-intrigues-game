@@ -77,14 +77,19 @@ public class Main {
         System.out.println("\n⚠️ [ДВОРЦОВАЯ ИНТРИГА!] ⚠️");
 
         int eventType = rand.nextInt(3);
-        String compromisingMaterialItem = "Компромат";
+        Item secretPapers = new Item(
+                "Секретные бумаги",
+                "Документ, порочащий честное имя",
+                ItemType.COMPROMAT,
+                0
+        );
 
         if (eventType == 0) {
             System.out.println(npc.getTitle() + " " + npc.getName() + " распускает о вас слухи!");
             System.out.println("1. Подкупить его (Потратить 30 монет)");
             System.out.println("2. Игнорировать (Потерять 15 влияния)");
 
-            if (hero.hasItem(compromisingMaterialItem)) {
+            if (hero.hasItemByName(secretPapers.getName())) {
                 System.out.println("3. [Использовать компромат] Заставить молчать");
             }
             System.out.println("> ");
@@ -103,9 +108,9 @@ public class Main {
                 hero.changeInfluence(-15);
                 npc.changeRelationship(-10);
                 System.out.println("Вы проигнорировали выпад. Ваше влияние упало.");
-            }  else if (choice == 3 && hero.hasItem(compromisingMaterialItem)) {
+            }  else if (choice == 3 && hero.hasItemByName(secretPapers.getName())) {
                 System.out.println("\nВы показали документ с его тайной. Он бледнеет и умолкает!\n");
-                hero.removeItem(compromisingMaterialItem);
+                hero.removeItemByName(secretPapers.getName());
                 npc.changeRelationship(-10);
             }
         } else if (eventType == 1) {
@@ -116,7 +121,7 @@ public class Main {
 
             int choice = scanner.nextInt();
             if (choice == 1) {
-                hero.addItem(compromisingMaterialItem);
+                hero.addItem(secretPapers);
                 System.out.println("Вы получили секретные бумаги!");
             } else {
                 System.out.println("Вы не стали трогать чужие вещи и узнавать чужие тайны");
