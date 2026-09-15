@@ -8,10 +8,25 @@ public class Main {
         Random rand = new Random();
 
         System.out.println("Добро пожаловать в игру «Дворец и Интриги»!");
-        System.out.println("Введите имя вашего персонажа: ");
-        String name = scanner.nextLine();
 
-        Hero hero = new Hero(name);
+        Hero hero = null;
+
+        System.out.println("1. Начать новую игру");
+        System.out.println("2. Загрузить сохранение");
+        System.out.println("> ");
+        int startChoice = scanner.nextInt();
+        scanner.nextLine();
+
+        if (startChoice == 2) {
+            hero = GameSaveManager.loadGame();
+        }
+
+        if (hero == null) {
+            System.out.println("Введите имя вашего персонажа: ");
+            String name = scanner.nextLine();
+            hero = new Hero(name);
+        }
+
 
         NPC advisor = new NPC("Кван Джи Хун", "Первый Министр", -20);
         NPC captain = new NPC("Ян Чонин", "Капитан Императорской Гвардии", -80);
@@ -19,7 +34,7 @@ public class Main {
 
         boolean isRunning = true;
 
-        System.out.println("\nПриветствуем при дворе, " + name + "!");
+        System.out.println("\nПриветствуем при дворе, " + hero.getName() + "!");
 
         while (isRunning) {
             hero.printStatus();
@@ -31,7 +46,8 @@ public class Main {
             System.out.println("1. Посетить аудиенцию (+10 к влиянию, -10 к энергии)");
             System.out.println("2. Собрать налоги (+20 золота, -15 к энергии)");
             System.out.println("3. Отдохнуть (+30 к энергии)");
-            System.out.println("4. \uD83C\uDF92 Открыть инвентарь");
+            System.out.println("4. 🎒 Открыть инвентарь");
+            System.out.println("5. 💾 Сохранить игру");
             System.out.println("0. Выйти из игры");
             System.out.println("> ");
 
@@ -54,6 +70,9 @@ public class Main {
                     break;
                 case 4:
                     openInventoryMenu(hero, scanner);
+                    continue;
+                case 5:
+                    GameSaveManager.saveGame(hero);
                     continue;
                 case 0:
                     System.out.println("\nВы покинули игру.");
