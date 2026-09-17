@@ -28,9 +28,9 @@ public class Main {
         }
 
 
-        NPC advisor = new NPC("Кван Джи Хун", "Первый Министр", -20);
-        NPC captain = new NPC("Ян Чонин", "Капитан Императорской Гвардии", -80);
-        NPC guard = new NPC("Чхве Джин Сан", "Командир Императорской Стражи", 100);
+        NPC advisor = new AdvisorNPC("Кван Джи Хун", -20);
+        NPC captain = new CaptainNPC("Ян Чонин", -80);
+        NPC guard = new GuardNPC("Чхве Джин Сан", 100);
 
         boolean isRunning = true;
 

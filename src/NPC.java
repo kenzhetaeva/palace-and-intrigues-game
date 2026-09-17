@@ -1,7 +1,7 @@
-public class NPC {
-    private String name;
-    private String title; // Должность
-    private int relationship; // Отношение к герою (от -100 до 100)
+public abstract class NPC {
+    protected String name;
+    protected String title; // Должность
+    protected int relationship; // Отношение к герою (от -100 до 100)
 
     public NPC(String name, String title, int initialRelationship) {
         this.name = name;
@@ -18,6 +18,8 @@ public class NPC {
             this.relationship = -100;
         }
     }
+
+    public abstract void interact(Hero hero);
 
     public void printInfo() {
         String status = relationship >= 0 ? "Лоялен" : "Враждебен";
