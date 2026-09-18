@@ -28,10 +28,18 @@ public class Main {
             hero = new Hero(name);
         }
 
+        MerchantNPC merchantNPC = new MerchantNPC("Бан Чан", 50, 40);
+
         List<NPC> palaceNPCs = new ArrayList<>();
         palaceNPCs.add(new AdvisorNPC("Кван Джи Хун", -20));
         palaceNPCs.add(new CaptainNPC("Ян Чонин", -80));
         palaceNPCs.add(new GuardNPC("Чхве Джин Сан", 100));
+        palaceNPCs.add(new SecretAgentNPC("Со Чанбин", 60));
+        palaceNPCs.add(merchantNPC);
+
+        List<Tradeable> tradeables = new ArrayList<>();
+        tradeables.add(merchantNPC);
+        tradeables.add(new SecretCache());
 
         boolean isRunning = true;
 
@@ -47,8 +55,9 @@ public class Main {
             System.out.println("1. Посетить аудиенцию (+10 к влиянию, -10 к энергии)");
             System.out.println("2. Собрать налоги (+20 золота, -15 к энергии)");
             System.out.println("3. Отдохнуть (+30 к энергии)");
-            System.out.println("4. 🎒 Открыть инвентарь");
-            System.out.println("5. 💾 Сохранить игру");
+            System.out.println("4. \uD83D\uDCB0 Поторговаться");
+            System.out.println("5. 🎒 Открыть инвентарь");
+            System.out.println("6. 💾 Сохранить игру");
             System.out.println("0. Выйти из игры");
             System.out.println("> ");
 
@@ -70,9 +79,14 @@ public class Main {
                     hero.changeHealth(30);
                     break;
                 case 4:
-                    openInventoryMenu(hero, scanner);
+                    int randomIndex = rand.nextInt(tradeables.size());
+                    Tradeable randomTradeable = tradeables.get(randomIndex);
+                    randomTradeable.openShop(hero);
                     continue;
                 case 5:
+                    openInventoryMenu(hero, scanner);
+                    continue;
+                case 6:
                     GameSaveManager.saveGame(hero);
                     continue;
                 case 0:
