@@ -1,3 +1,6 @@
+import java.util.Random;
+import java.util.Scanner;
+
 public abstract class NPC {
     protected String name;
     protected String title; // Должность
@@ -19,7 +22,7 @@ public abstract class NPC {
         }
     }
 
-    public abstract void interact(Hero hero);
+    public abstract void interact(Hero hero, Scanner scanner, Random rand);
 
     public void printInfo() {
         String status = relationship >= 0 ? "Лоялен" : "Враждебен";

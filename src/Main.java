@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -27,10 +28,10 @@ public class Main {
             hero = new Hero(name);
         }
 
-
-        NPC advisor = new AdvisorNPC("Кван Джи Хун", -20);
-        NPC captain = new CaptainNPC("Ян Чонин", -80);
-        NPC guard = new GuardNPC("Чхве Джин Сан", 100);
+        List<NPC> palaceNPCs = new ArrayList<>();
+        palaceNPCs.add(new AdvisorNPC("Кван Джи Хун", -20));
+        palaceNPCs.add(new CaptainNPC("Ян Чонин", -80));
+        palaceNPCs.add(new GuardNPC("Чхве Джин Сан", 100));
 
         boolean isRunning = true;
 
@@ -38,9 +39,9 @@ public class Main {
 
         while (isRunning) {
             hero.printStatus();
-            advisor.printInfo();
-            captain.printInfo();
-            guard.printInfo();
+            for(NPC npc : palaceNPCs) {
+                npc.printInfo();
+            }
 
             System.out.println("Выберите действие:");
             System.out.println("1. Посетить аудиенцию (+10 к влиянию, -10 к энергии)");
@@ -81,91 +82,19 @@ public class Main {
                 default:
                     System.out.println("\nНеверный выбор. Попробуйте снова.");
             }
-            if (rand.nextInt(100) < 50) {
-                int npc = rand.nextInt(3);
-                NPC chosenNPC;
-                if (npc == 0) {
-                    chosenNPC = advisor;
-                } else if (npc == 1) {
-                    chosenNPC = captain;
-                } else {
-                    chosenNPC = guard;
-                }
-                triggerRandomEvent(hero, chosenNPC, scanner, rand);
+            if (rand.nextBoolean()) {
+                int randomIndex = rand.nextInt(palaceNPCs.size());
+                NPC randomNpc = palaceNPCs.get(randomIndex);
+                triggerRandomEvent(hero, randomNpc, scanner, rand);
             }
         }
         scanner.close();
     }
 
     private static void triggerRandomEvent(Hero hero, NPC npc, Scanner scanner, Random rand) {
-        System.out.println("\n⚠️ [ДВОРЦОВАЯ ИНТРИГА!] ⚠️");
-
-        int eventType = rand.nextInt(3);
-        Item secretPapers = new Item(
-                "Секретные бумаги",
-                "Документ, порочащий честное имя",
-                ItemType.COMPROMAT,
-                0
-        );
-
-        if (eventType == 0) {
-            System.out.println(npc.getTitle() + " " + npc.getName() + " распускает о вас слухи!");
-            System.out.println("1. Подкупить его (Потратить 30 монет)");
-            System.out.println("2. Игнорировать (Потерять 15 влияния)");
-
-            if (hero.hasItemByName(secretPapers.getName())) {
-                System.out.println("3. [Использовать компромат] Заставить молчать");
-            }
-            System.out.println("> ");
-
-            int choice = scanner.nextInt();
-            if (choice == 1) {
-                if (hero.getGold() >= 30) {
-                    hero.changeGold(-30);
-                    npc.changeRelationship(15);
-                    System.out.println("Вы передали кошель с золотом. Слухи замяты.");
-                } else {
-                    System.out.println("У вас недостаточно золота! Слухи распространились.");
-                    hero.changeInfluence(-15);
-                }
-            } else if (choice == 2) {
-                hero.changeInfluence(-15);
-                npc.changeRelationship(-10);
-                System.out.println("Вы проигнорировали выпад. Ваше влияние упало.");
-            }  else if (choice == 3 && hero.hasItemByName(secretPapers.getName())) {
-                System.out.println("\nВы показали документ с его тайной. Он бледнеет и умолкает!\n");
-                hero.removeItemByName(secretPapers.getName());
-                npc.changeRelationship(-10);
-            }
-        } else if (eventType == 1) {
-            System.out.println("Гуляя по дворцовому саду, вы нашли тайник в дупле древнего дуба!");
-            System.out.println("1. Забрать содержимое себе");
-            System.out.println("2. Ничего не трогать");
-            System.out.println("> ");
-
-            int choice = scanner.nextInt();
-            if (choice == 1) {
-                hero.addItem(secretPapers);
-                System.out.println("Вы получили секретные бумаги!");
-            } else {
-                System.out.println("Вы не стали трогать чужие вещи и узнавать чужие тайны");
-            }
-        } else {
-            System.out.println("Вы случайно узнали секрет " + npc.getTitle() + " " + npc.getName() + "!");
-            System.out.println("1. Шантажировать его (+20 золота, испортить отношения)");
-            System.out.println("2. Сохранить тайну (+25 к отношениям)");
-            System.out.println("> ");
-
-            int choice = scanner.nextInt();
-            if (choice == 1) {
-                hero.changeGold(20);
-                npc.changeRelationship(-30);
-                System.out.println(npc.getName() + " заплатил вам, но теперь он вас ненавидит.");
-            } else {
-                npc.changeRelationship(25);
-                System.out.println(npc.getName() + " благодарен за ваше молчание.");
-            }
-        }
+        System.out.println("\n🎲 --- СОБЫТИЕ ВО ДВОРЦЕ ---");
+        System.out.println("К вам подходит " + npc.getTitle() + " " + npc.getName() + ".");
+        npc.interact(hero, scanner, rand);
     }
 
     private static void openInventoryMenu(Hero hero, Scanner scanner) {
