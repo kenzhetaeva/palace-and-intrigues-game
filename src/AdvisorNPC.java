@@ -17,7 +17,7 @@ public class AdvisorNPC extends NPC implements Bribable {
         );
 
         if (rand.nextBoolean()) {
-            System.out.println(getTitle() + " " + getName() + " распускает о вас слухи!");
+            System.out.println(title + " " + name + " распускает о вас слухи!");
             System.out.println("1. Подкупить его");
             System.out.println("2. Игнорировать (Потерять 15 влияния)");
 
@@ -47,7 +47,7 @@ public class AdvisorNPC extends NPC implements Bribable {
                 changeRelationship(-10);
             }
         } else {
-            System.out.println("Вы случайно узнали секрет " + getTitle() + " " + getName() + "!");
+            System.out.println("Вы случайно узнали секрет " + title + " " + name + "!");
             System.out.println("1. Шантажировать его (+20 золота, испортить отношения)");
             System.out.println("2. Сохранить тайну (+25 к отношениям)");
             System.out.println("> ");
@@ -56,10 +56,10 @@ public class AdvisorNPC extends NPC implements Bribable {
             if (choice == 1) {
                 hero.changeGold(20);
                 changeRelationship(-30);
-                System.out.println(getName() + " заплатил вам, но теперь он вас ненавидит.");
+                System.out.println(name + " заплатил вам, но теперь он вас ненавидит.");
             } else {
                 changeRelationship(25);
-                System.out.println(getName() + " благодарен за ваше молчание.");
+                System.out.println(name + " благодарен за ваше молчание.");
             }
         }
     }
@@ -76,7 +76,7 @@ public class AdvisorNPC extends NPC implements Bribable {
         int relationshipBonus = amount / 5;
         changeRelationship(relationshipBonus);
 
-        System.out.println("💰 Советник " + name + " незаметно спрятал " + amount + " монет в рукав.");
+        System.out.println("💰 " + title + " " + name + " незаметно спрятал " + amount + " монет в рукав.");
         System.out.println("Отношения улучшились на +" + relationshipBonus + "!");
         return true;
     }
