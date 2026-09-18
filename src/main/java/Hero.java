@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Hero {
+    private int id;
     private String name;
     private int influence; // Влияние во дворце (0-100)
     private int gold;      // Золото
@@ -99,6 +100,10 @@ public class Hero {
         System.out.println("===============================================\n");
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
@@ -117,5 +122,25 @@ public class Hero {
 
     public List<Item> getInventory() {
         return inventory;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setInfluence(int influence) {
+        this.influence = influence;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 }
