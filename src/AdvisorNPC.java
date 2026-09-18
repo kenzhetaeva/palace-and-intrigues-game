@@ -1,7 +1,7 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class AdvisorNPC extends NPC {
+public class AdvisorNPC extends NPC implements Bribable {
 
     public AdvisorNPC(String name, int initialRelationship) {
         super(name, "Первый Министр", initialRelationship);
@@ -9,7 +9,6 @@ public class AdvisorNPC extends NPC {
 
     @Override
     public void interact(Hero hero, Scanner scanner, Random rand) {
-
         Item secretPapers = new Item(
                 "Секретные бумаги",
                 "Документ, порочащий честное имя",
@@ -18,8 +17,8 @@ public class AdvisorNPC extends NPC {
         );
 
         if (rand.nextBoolean()) {
-            System.out.println(this.getTitle() + " " + this.getName() + " распускает о вас слухи!");
-            System.out.println("1. Подкупить его (Потратить 30 монет)");
+            System.out.println(getTitle() + " " + getName() + " распускает о вас слухи!");
+            System.out.println("1. Подкупить его");
             System.out.println("2. Игнорировать (Потерять 15 влияния)");
 
             if (hero.hasItemByName(secretPapers.getName())) {
@@ -29,22 +28,23 @@ public class AdvisorNPC extends NPC {
 
             int choice = scanner.nextInt();
             if (choice == 1) {
-                if (hero.getGold() >= 30) {
-                    hero.changeGold(-30);
-                    this.changeRelationship(15);
-                    System.out.println("Вы передали кошель с золотом. Слухи замяты.");
+                System.out.println("Сколько хотите заплатить как взятку");
+                System.out.println("> ");
+                int amount = scanner.nextInt();
+                if (takeBribe(hero, amount)) {
+                    System.out.println("Слухи замяты.");
                 } else {
-                    System.out.println("У вас недостаточно золота! Слухи распространились.");
+                    System.out.println("Слухи распространились.");
                     hero.changeInfluence(-15);
                 }
             } else if (choice == 2) {
                 hero.changeInfluence(-15);
-                this.changeRelationship(-10);
+                changeRelationship(-10);
                 System.out.println("Вы проигнорировали выпад. Ваше влияние упало.");
             } else if (choice == 3 && hero.hasItemByName(secretPapers.getName())) {
                 System.out.println("\nВы показали документ с его тайной. Он бледнеет и умолкает!\n");
                 hero.removeItemByName(secretPapers.getName());
-                this.changeRelationship(-10);
+                changeRelationship(-10);
             }
         } else {
             System.out.println("Вы случайно узнали секрет " + getTitle() + " " + getName() + "!");
@@ -62,5 +62,22 @@ public class AdvisorNPC extends NPC {
                 System.out.println(getName() + " благодарен за ваше молчание.");
             }
         }
+    }
+
+    @Override
+    public boolean takeBribe(Hero hero, int amount) {
+        if (hero.getGold() < amount) {
+            System.out.println("❌ У вас недостаточно золота для взятки!");
+            return false;
+        }
+
+        hero.changeGold(-amount);
+
+        int relationshipBonus = amount / 5;
+        changeRelationship(relationshipBonus);
+
+        System.out.println("💰 Советник " + name + " незаметно спрятал " + amount + " монет в рукав.");
+        System.out.println("Отношения улучшились на +" + relationshipBonus + "!");
+        return true;
     }
 }
