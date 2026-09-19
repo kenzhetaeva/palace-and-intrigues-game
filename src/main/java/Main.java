@@ -1,6 +1,7 @@
 import entities.*;
 import entities.NPCs.*;
 import interfaces.Tradeable;
+import services.DatabaseConnection;
 import services.GameSaveManager;
 
 import java.util.ArrayList;
@@ -62,8 +63,7 @@ public class Main {
             System.out.println("3. Отдохнуть (+30 к энергии)");
             System.out.println("4. \uD83D\uDCB0 Поторговаться");
             System.out.println("5. 🎒 Открыть инвентарь");
-            System.out.println("6. 💾 Сохранить игру");
-            System.out.println("0. Выйти из игры");
+            System.out.println("0. Сохранить игру и выйти");
             System.out.println("> ");
 
             int choice = scanner.nextInt();
@@ -91,11 +91,10 @@ public class Main {
                 case 5:
                     openInventoryMenu(hero, scanner);
                     continue;
-                case 6:
-                    GameSaveManager.saveGame(hero);
-                    continue;
                 case 0:
-                    System.out.println("\nВы покинули игру.");
+                    GameSaveManager.saveGame(hero);
+                    DatabaseConnection.closePool();
+                    System.out.println("Игра сохранена. До встречи!");
                     isRunning = false;
                     continue;
                 default:

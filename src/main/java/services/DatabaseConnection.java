@@ -16,7 +16,7 @@ public class DatabaseConnection {
         // 1. Параметры подключения к PostgreSQL
         config.setJdbcUrl("jdbc:postgresql://localhost:5432/palace_game");
         config.setUsername("postgres");
-        config.setPassword("your_password");
+        config.setPassword("palace_game");
         config.setDriverClassName("org.postgresql.Driver");
 
         // 2. Настройки производительности и размера пула
