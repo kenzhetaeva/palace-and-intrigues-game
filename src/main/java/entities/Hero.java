@@ -1,3 +1,7 @@
+package entities;
+
+import enums.ItemType;
+
 import java.util.ArrayList;
 import java.util.List;
 

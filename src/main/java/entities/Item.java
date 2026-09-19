@@ -1,3 +1,7 @@
+package entities;
+
+import enums.ItemType;
+
 public class Item {
     private String name;
     private String description;

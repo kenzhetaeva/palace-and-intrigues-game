@@ -1,3 +1,8 @@
+package entities;
+
+import enums.ItemType;
+import interfaces.Tradeable;
+
 public class SecretCache implements Tradeable {
     private boolean isLocked = true;
 

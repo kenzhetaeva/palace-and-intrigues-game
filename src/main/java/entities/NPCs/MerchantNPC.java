@@ -1,7 +1,14 @@
+package entities.NPCs;
+
+import entities.Hero;
+import entities.Item;
+import enums.ItemType;
+import interfaces.Tradeable;
+
 import java.util.Random;
 import java.util.Scanner;
 
-public class MerchantNPC extends  NPC implements Tradeable {
+public class MerchantNPC extends NPC implements Tradeable {
     private int itemPrice;
     private boolean hasItem;
 

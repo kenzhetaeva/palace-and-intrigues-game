@@ -1,3 +1,9 @@
+package dao;
+
+import entities.Hero;
+import entities.Item;
+import services.DatabaseConnection;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

@@ -1,3 +1,9 @@
+package services;
+
+import entities.Hero;
+import entities.Item;
+import enums.ItemType;
+
 import java.io.*;
 
 public class GameSaveManager {

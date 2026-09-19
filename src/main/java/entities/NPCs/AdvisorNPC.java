@@ -1,3 +1,10 @@
+package entities.NPCs;
+
+import entities.Hero;
+import entities.Item;
+import enums.ItemType;
+import interfaces.Bribable;
+
 import java.util.Random;
 import java.util.Scanner;
 
