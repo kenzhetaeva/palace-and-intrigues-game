@@ -1,8 +1,8 @@
-package entities.NPCs;
+package com.example.demo.entities.NPCs;
 
-import entities.Hero;
-import entities.Item;
-import enums.ItemType;
+import com.example.demo.entities.Hero;
+import com.example.demo.entities.Item;
+import com.example.demo.enums.ItemType;
 
 import java.util.Random;
 import java.util.Scanner;

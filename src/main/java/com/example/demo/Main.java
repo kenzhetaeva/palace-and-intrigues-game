@@ -1,8 +1,10 @@
-import entities.*;
-import entities.NPCs.*;
-import interfaces.Tradeable;
-import services.DatabaseConnection;
-import services.GameSaveManager;
+package com.example.demo;
+
+import com.example.demo.entities.*;
+import com.example.demo.entities.NPCs.*;
+import com.example.demo.interfaces.Tradeable;
+import com.example.demo.services.DatabaseConnection;
+import com.example.demo.services.GameSaveManager;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
-package entities.NPCs;
+package com.example.demo.entities.NPCs;
 
-import entities.Hero;
+import com.example.demo.entities.Hero;
 
 import java.util.Random;
 import java.util.Scanner;

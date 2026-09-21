@@ -1,8 +1,8 @@
-package services;
+package com.example.demo.services;
 
-import entities.Hero;
-import entities.Item;
-import enums.ItemType;
+import com.example.demo.entities.Hero;
+import com.example.demo.entities.Item;
+import com.example.demo.enums.ItemType;
 
 import java.io.*;
 
@@ -18,7 +18,7 @@ public class GameSaveManager {
 
             for (Item item : hero.getInventory()) {
                 writer.write(item.getName() + ";" + item.getDescription() + ";" +
-                        item.getType() + ";" + item.getValue() + "\n");
+                        item.getType() + ";" + item.getEffectValue() + "\n");
             }
             System.out.println("💾 Игра успешно сохранена в файл " + SAVE_FILE + "!");
         } catch (IOException e) {

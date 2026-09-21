@@ -1,17 +1,34 @@
-package entities;
+package com.example.demo.entities;
 
-import enums.ItemType;
+import com.example.demo.enums.ItemType;
 
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "heroes")
 public class Hero {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "name", nullable = false, length = 50)
     private String name;
+
+    @Column(name = "influence")
     private int influence; // Влияние во дворце (0-100)
+
+    @Column(name = "gold")
     private int gold;      // Золото
+
+    @Column(name = "health")
     private int health;    // Здоровье/Энергия (0-100)
+
+    @OneToMany(mappedBy = "hero", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> inventory; // Список предметов в инвентаре
+
+    public Hero() {}
 
     public Hero(String name) {
         this.name = name;
@@ -84,9 +101,9 @@ public class Hero {
         Item item = inventory.get(index);
 
         if (item.getType() == ItemType.HEALTH) {
-            changeHealth(item.getValue());
+            changeHealth(item.getEffectValue());
             System.out.println("\n\uD83E\uDDEA Вы использовали ["
-                    + item.getName() + "] и восстановили " + item.getValue() + "энергии!");
+                    + item.getName() + "] и восстановили " + item.getEffectValue() + "энергии!");
             inventory.remove(index);
         } else if (item.getType() == ItemType.COMPROMAT) {
             System.out.println("\n\uD83D\uDCDC Этот предмет нельзя использовать просто так - приберегите его для дворцовых интриг!");
