@@ -48,4 +48,12 @@ public class Item {
     public int getEffectValue() {
         return effectValue;
     }
+
+    public Hero getHero() {
+        return hero;
+    }
+
+    public void setHero(Hero hero) {
+        this.hero = hero;
+    }
 }

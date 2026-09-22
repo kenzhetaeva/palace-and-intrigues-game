@@ -82,6 +82,7 @@ public class Hero {
         for (Item item : inventory) {
             if (item.getName().equalsIgnoreCase(itemName)) {
                 inventory.remove(item);
+                item.setHero(null);
                 System.out.println("❌ Предмет использован: [" + item.getName() + "]");
                 return;
             }
@@ -90,6 +91,7 @@ public class Hero {
 
     public void addItem(Item item) {
         this.inventory.add(item);
+        item.setHero(this);
         System.out.println("✨ Вы получили предмет: [" + item.getName() + "]");
     }
 
@@ -105,6 +107,7 @@ public class Hero {
             System.out.println("\n\uD83E\uDDEA Вы использовали ["
                     + item.getName() + "] и восстановили " + item.getEffectValue() + "энергии!");
             inventory.remove(index);
+            item.setHero(null);
         } else if (item.getType() == ItemType.COMPROMAT) {
             System.out.println("\n\uD83D\uDCDC Этот предмет нельзя использовать просто так - приберегите его для дворцовых интриг!");
         } else {

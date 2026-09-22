@@ -7,6 +7,8 @@ import com.example.demo.repositories.HeroRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class GameService {
 
@@ -23,6 +25,10 @@ public class GameService {
         hero.addItem(new Item("Стальной кинжал", ItemType.WEAPON, 10));
 
         return heroRepository.save(hero);
+    }
+
+    public List<Hero> getHeroes() {
+        return heroRepository.findAll();
     }
 
     @Transactional(readOnly = true)
