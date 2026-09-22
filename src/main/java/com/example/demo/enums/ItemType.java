@@ -4,4 +4,6 @@ public enum ItemType {
     HEALTH,
     COMPROMAT,
     TREASURE,
+    ACCESSORY,
+    WEAPON,
 }

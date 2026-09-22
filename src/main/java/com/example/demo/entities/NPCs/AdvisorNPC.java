@@ -16,12 +16,7 @@ public class AdvisorNPC extends NPC implements Bribable {
 
     @Override
     public void interact(Hero hero, Scanner scanner, Random rand) {
-        Item secretPapers = new Item(
-                "Секретные бумаги",
-                "Документ, порочащий честное имя",
-                ItemType.COMPROMAT,
-                0
-        );
+        Item secretPapers = new Item("Секретные бумаги", ItemType.COMPROMAT, 0);
 
         if (rand.nextBoolean()) {
             System.out.println(title + " " + name + " распускает о вас слухи!");

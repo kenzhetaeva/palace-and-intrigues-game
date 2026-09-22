@@ -39,7 +39,7 @@ public class Hero {
         this.health = 100;
         this.inventory = new ArrayList<>();
 
-        inventory.add(new Item("Целительный отвар", "Восстанавливает 30 ед. энергии", ItemType.HEALTH, 30));
+        inventory.add(new Item("Целительный отвар", ItemType.HEALTH, 30));
     }
 
     public void changeInfluence(int amount) {

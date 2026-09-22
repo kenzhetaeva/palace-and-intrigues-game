@@ -10,14 +10,7 @@ public class SecretCache implements Tradeable {
     public void openShop(Hero hero) {
         if (isLocked && hero.getGold() >= 10) {
             hero.changeGold(-10);
-            hero.addItem(
-                    new Item(
-                            "Старинная монета",
-                            "Монета для покупки нужных вещей",
-                            ItemType.TREASURE,
-                            50
-                    )
-            );
+            hero.addItem(new Item("Старинная монета", ItemType.TREASURE, 50));
             isLocked = false;
             System.out.println("🔑 Вы заплатили 10 монет взломщику и открыли тайник!");
         } else if (!isLocked) {

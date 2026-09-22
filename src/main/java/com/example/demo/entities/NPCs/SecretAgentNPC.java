@@ -15,12 +15,7 @@ public class SecretAgentNPC extends NPC {
 
     @Override
     public void interact(Hero hero, Scanner scanner, Random rand) {
-        Item secretPapers = new Item(
-                "Секретные бумаги",
-                "Документ, порочащий честное имя",
-                ItemType.COMPROMAT,
-                0
-        );
+        Item secretPapers = new Item("Секретные бумаги", ItemType.COMPROMAT, 0);
 
         System.out.println("\n\uD83E\uDD2B️ " + title + " " + name + " кланяется вам в знак приветствия.");
         if (relationship >= 30) {

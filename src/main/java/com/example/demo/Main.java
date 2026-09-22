@@ -3,8 +3,6 @@ package com.example.demo;
 import com.example.demo.entities.*;
 import com.example.demo.entities.NPCs.*;
 import com.example.demo.interfaces.Tradeable;
-import com.example.demo.services.DatabaseConnection;
-import com.example.demo.services.GameSaveManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,23 +16,9 @@ public class Main {
 
         System.out.println("Добро пожаловать в игру «Дворец и Интриги»!");
 
-        Hero hero = null;
-
-        System.out.println("1. Начать новую игру");
-        System.out.println("2. Загрузить сохранение");
-        System.out.println("> ");
-        int startChoice = scanner.nextInt();
-        scanner.nextLine();
-
-        if (startChoice == 2) {
-            hero = GameSaveManager.loadGame();
-        }
-
-        if (hero == null) {
-            System.out.println("Введите имя вашего персонажа: ");
-            String name = scanner.nextLine();
-            hero = new Hero(name);
-        }
+        System.out.println("Введите имя вашего персонажа: ");
+        String name = scanner.nextLine();
+        Hero hero = new Hero(name);
 
         MerchantNPC merchantNPC = new MerchantNPC("Бан Чан", 50, 40);
 
@@ -94,8 +78,7 @@ public class Main {
                     openInventoryMenu(hero, scanner);
                     continue;
                 case 0:
-                    GameSaveManager.saveGame(hero);
-                    DatabaseConnection.closePool();
+                    // TODO сохранять игру в базе
                     System.out.println("Игра сохранена. До встречи!");
                     isRunning = false;
                     continue;

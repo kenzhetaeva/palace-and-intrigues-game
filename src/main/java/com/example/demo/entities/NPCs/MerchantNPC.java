@@ -33,14 +33,7 @@ public class MerchantNPC extends NPC implements Tradeable {
 
         if (hero.getGold() >= itemPrice) {
             hero.changeGold(-itemPrice);
-            hero.addItem(
-                    new Item(
-                            "Эликсир сил",
-                            "Эликсир прибавляющий энергии",
-                            ItemType.HEALTH,
-                            30
-                    )
-            );
+            hero.addItem(new Item("Эликсир сил", ItemType.HEALTH, 30));
             hasItem = false;
             System.out.println("Вы успешно купили эликсир!");
         } else {

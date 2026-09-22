@@ -13,9 +13,6 @@ public class Item {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "description")
-    private String description;
-
     @Column(name = "type", nullable = false)
     private ItemType type;
 
@@ -28,26 +25,20 @@ public class Item {
 
     public Item() {}
 
-    public Item(String name, String description, ItemType type, int effectValue) {
+    public Item(String name, ItemType type, int effectValue) {
         this.name = name;
-        this.description = description;
         this.type = type;
         this.effectValue = effectValue;
     }
 
     public void printInfo() {
         System.out.println(
-                "\uD83D\uDCE6 [" + this.name + "] - " + this.description
-                        + " (Тип: " + this.type + ", Эффект: " + this.effectValue + ")"
+                "\uD83D\uDCE6 [" + this.name + "] " + " (Тип: " + this.type + ", Эффект: " + this.effectValue + ")"
         );
     }
 
     public String getName() {
         return name;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public ItemType getType() {
