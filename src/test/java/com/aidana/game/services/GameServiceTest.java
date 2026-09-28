@@ -42,7 +42,7 @@ class GameServiceTest {
 
         assertThat(createdHero).isNotNull();
         assertThat(createdHero.getName()).isEqualTo("Хван Хенджин");
-        assertThat(createdHero.getInventory()).hasSize(2);
+        assertThat(createdHero.getInventory()).hasSize(3);
 
         ArgumentCaptor<Hero> heroCaptor = ArgumentCaptor.forClass(Hero.class);
         verify(heroRepository).save(heroCaptor.capture());
