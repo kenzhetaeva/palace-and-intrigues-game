@@ -1,13 +1,25 @@
 package com.aidana.game.entities.NPCs;
 
 import com.aidana.game.entities.Hero;
+import jakarta.persistence.*;
 
 import java.util.Random;
 import java.util.Scanner;
 
+@Entity
+@Table(name = "npcs")
 public abstract class NPC {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "name", nullable = false)
     protected String name;
+
+    @Column(name = "title", nullable = false)
     protected String title; // Должность
+
+    @Column(name = "relationship")
     protected int relationship; // Отношение к герою (от -100 до 100)
 
     public NPC(String name, String title, int initialRelationship) {
