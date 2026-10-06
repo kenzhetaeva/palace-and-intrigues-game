@@ -1,4 +1,4 @@
-package com.aidana.game.services;
+package com.aidana.game.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
