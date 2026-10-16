@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -43,6 +44,7 @@ public class HeroRestController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @Operation(summary = "Получить героя по ID", description = "Возвращает полную информацию о герое и его инвентаре.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Герой найден"),
