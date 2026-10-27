@@ -1,0 +1,41 @@
+name: CI/CD Pipeline to VPS
+
+on:
+    push:
+        branches: [ "main" ]
+
+jobs:
+    build-and-deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Set up JDK 17
+              uses: actions/setup-java@v4
+              with:
+                  java-version: '17'
+                  distribution: 'temurin'
+                  cache: maven
+
+            - name: Run Tests with Maven
+              run: mvn test
+
+            - name: Deploy to Remote Server via SSH
+              uses: appleboy/ssh-action@v1.0.3
+              with:
+                  host: ${{ secrets.SSH_HOST }}
+                  username: ${{ secrets.SSH_USER }}
+                  key: ${{ secrets.SSH_PRIVATE_KEY }}
+                  script: |
+                      cd /home/palace-game
+                      
+                      git pull origin main
+                      
+                      export DB_PASSWORD="${{ secrets.DB_PASSWORD }}"
+                      
+                      docker compose down
+                      docker compose up --build -d
+                      
+                      docker system prune -f
