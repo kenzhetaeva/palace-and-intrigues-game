@@ -55,4 +55,11 @@ public class HeroRestController {
         Hero hero = gameService.findHeroById(id);
         return ResponseEntity.ok(heroMapper.toHeroResponse(hero));
     }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> deleteHero(@PathVariable Integer id) {
+        gameService.deleteHero(id);
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -31,6 +31,10 @@ public class GameService {
         return heroRepository.findById(heroId).orElse(null);
     }
 
+    public void deleteHero(Integer heroId) {
+        heroRepository.deleteById(heroId);
+    }
+
     public List<Hero> getHeroes() {
         return heroRepository.findAll();
     }
