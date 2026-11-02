@@ -57,6 +57,7 @@ public class HeroRestController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Удалить героя", description = "Удаляет персонажа по айди.")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteHero(@PathVariable Integer id) {
         gameService.deleteHero(id);
