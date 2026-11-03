@@ -4,6 +4,8 @@ import com.aidana.game.entities.Hero;
 import com.aidana.game.entities.Item;
 import com.aidana.game.enums.ItemType;
 import com.aidana.game.repositories.HeroRepository;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +27,10 @@ public class GameService {
         hero.addItem(new Item("Стальной кинжал", ItemType.WEAPON, 10));
 
         return heroRepository.save(hero);
+    }
+
+    public void saveHero(Hero hero) {
+        heroRepository.save(hero);
     }
 
     public Hero findHeroById(Integer heroId) {
