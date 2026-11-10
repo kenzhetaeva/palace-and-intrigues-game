@@ -1,16 +1,19 @@
 package com.aidana.game;
 
+import com.aidana.game.entities.User;
+import com.aidana.game.enums.Role;
+import com.aidana.game.repositories.UserRepository;
 import com.aidana.game.security.JwtService;
+import com.aidana.game.services.GameService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Collections;
+import java.util.Set;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -25,18 +28,26 @@ class JwtAuthIntegrationTest {
     @Autowired
     private JwtService jwtService;
 
+    @Autowired
+    private GameService gameService;
+
+    @Autowired
+    private UserRepository userRepository;
+
     @Test
     @DisplayName("Успешный запрос с валидным JWT-токеном (200 OK)")
     void getHero_WithValidJwt_ShouldReturnOk() throws Exception {
-        UserDetails userDetails = new User(
-                "testuser",
-                "password",
-                Collections.emptyList()
-        );
+        UserDetails userDetails = org.springframework.security.core.userdetails.User.withUsername("testuser")
+                .password("password")
+                .roles("USER")
+                .build();
+        userRepository.save(new User("testuser", "password", Set.of(Role.ROLE_USER)));
 
         String token = jwtService.generateToken(userDetails);
 
-        mockMvc.perform(get("/api/v1/heroes/1")
+        int heroId = gameService.createNewGame("test hero").getId();
+
+        mockMvc.perform(get("/api/v1/heroes/" + heroId)
                         .header("Authorization", "Bearer " + token))
                 .andExpect(status().isOk());
     }
