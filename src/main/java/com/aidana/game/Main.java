@@ -20,7 +20,7 @@ public class Main {
 
         System.out.println("Добро пожаловать в игру «Дворец и Интриги»!");
 
-        System.out.println("Введите имя вашего персонажа: ");
+        System.out.println("Введите имя вашего персонажа:");
         String name = scanner.nextLine();
         Hero hero = new Hero(name);
 
