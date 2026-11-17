@@ -28,9 +28,9 @@ public class Main {
 
         List<NPC> palaceNPCs = new ArrayList<>();
         palaceNPCs.add(new AdvisorNPC("Кван Джи Хун", -20));
-        palaceNPCs.add(new CaptainNPC("Ян Чонин", -80));
+        palaceNPCs.add(new CaptainNPC("Ян Чон Ин", -80));
         palaceNPCs.add(new GuardNPC("Чхве Джин Сан", 100));
-        palaceNPCs.add(new SecretAgentNPC("Со Чанбин", 60));
+        palaceNPCs.add(new SecretAgentNPC("Со Чан Бин", 60));
         palaceNPCs.add(merchantNPC);
 
         List<Tradeable> tradeables = new ArrayList<>();
