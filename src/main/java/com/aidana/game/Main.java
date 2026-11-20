@@ -54,7 +54,7 @@ public class Main {
             System.out.println("4. \uD83D\uDCB0 Поторговаться");
             System.out.println("5. 🎒 Открыть инвентарь");
             System.out.println("0. Сохранить игру и выйти");
-            System.out.println("> ");
+            System.out.println(">");
 
             int choice = scanner.nextInt();
 
