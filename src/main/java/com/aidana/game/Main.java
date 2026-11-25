@@ -54,7 +54,7 @@ public class Main {
             System.out.println("3. Отдохнуть (+30 к энергии)");
             System.out.println("4. \uD83D\uDCB0 Поторговаться");
             System.out.println("5. 🎒 Открыть инвентарь");
-            System.out.println("0. Сохранить игру и выйти");
+            System.out.println("0. Выйти из игры");
             System.out.println(">");
 
             int choice = scanner.nextInt();
@@ -83,7 +83,7 @@ public class Main {
                     openInventoryMenu(hero, scanner);
                     continue;
                 case 0:
-                    System.out.println("Игра сохранена. До встречи!");
+                    System.out.println("До встречи!");
                     isRunning = false;
                     continue;
                 default:
