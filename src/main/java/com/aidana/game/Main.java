@@ -49,7 +49,7 @@ public class Main {
             }
 
             System.out.println("Выберите действие:");
-            System.out.println("1. Посетить аудиенцию (+10 к влиянию, -10 к энергии)");
+            System.out.println("1. Посетить аудиенцию (+10 к влиянию, -15 к энергии)");
             System.out.println("2. Собрать налоги (+20 золота, -15 к энергии)");
             System.out.println("3. Отдохнуть (+30 к энергии)");
             System.out.println("4. \uD83D\uDCB0 Поторговаться");
@@ -63,7 +63,7 @@ public class Main {
                 case 1:
                     System.out.println("\nВы успешно выступили на аудиенции!");
                     hero.changeInfluence(10);
-                    hero.changeHealth(-10);
+                    hero.changeHealth(-15);
                     break;
                 case 2:
                     System.out.println("\nКазна пополнена!");
